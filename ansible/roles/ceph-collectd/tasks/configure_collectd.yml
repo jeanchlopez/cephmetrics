@@ -5,6 +5,13 @@
     dest: "{{ collectd_conf }}"
   notify: Restart collectd
 
+- name: Make sure collected uses shor hostanem in collectd.conf
+  replace:
+    dest: "{{ collectd_conf }}"
+    regexp: 'Hostname ".*"'
+    replace: 'Hostname "{{ ansible_hostname }}"'
+  notify: Restart collectd
+
 - name: Set PluginDir in collectd.conf
   replace:
     dest: "{{ collectd_conf }}"
